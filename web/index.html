@@ -101,7 +101,7 @@
 	<main class="container">
 		<div class="containerRight">
 			<h1>Bem Vindo </h1>
-			<form id="loginForm"> <!-- Adicionei o id aqui -->
+			<form id="loginForm"> 
 				<label>
 					Email
 					<input type="email" id="Email" placeholder="email" required>
@@ -112,38 +112,12 @@
 					<input type="password" id="password" placeholder="senha" required>
 				</label>
 
-				<button type="submit">Fazer login</button> <!-- Altere o tipo do botão para submit -->
+				<button type="submit">Fazer login</button>
 			</form>
 		</div>
 	</main>
 
-	<script>
-		document.addEventListener('DOMContentLoaded', () => {
-			const form = document.getElementById('loginForm'); // Agora o form tem o id
-
-			form.addEventListener('submit', async (event) => {
-				event.preventDefault(); // Impede o envio do formulário tradicional
-
-				const email = document.getElementById('Email').value;
-				const password = document.getElementById('password').value;
-
-				// Envia os dados para o servidor
-				const response = await fetch('http://localhost:3000/login', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ email, senha: password })
-				});
-
-				if (response.ok) {
-					window.location.href = 'telaprof.html'; // Redireciona para outra página após login bem-sucedido
-				} else {
-					alert('Erro no login, tente novamente.');
-				}
-			});
-		});
-	</script>
+	<script src="js1.js"></script>
+	
 </body>
-
 </html>
