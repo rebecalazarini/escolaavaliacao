@@ -4,6 +4,7 @@
 - JavaScript
 - Prisma
 - Mysql
+- Node.js
 - html
 - css
 
