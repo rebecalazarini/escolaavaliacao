@@ -17,10 +17,14 @@ model Tarefa {
     id   Int    @id @default(autoincrement())
     numero String
     nome String
+    turmaId  Int
+    Turma Turma @relation(fields: [turmaId], references: [id])
+
 }
 
 model Turma {
      id   Int    @id @default(autoincrement())
     numero String
-    nome String
+    nome String @unique
+    Tarefa Tarefa[]
 }

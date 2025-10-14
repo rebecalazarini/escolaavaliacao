@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +11,6 @@
             margin: 0;
             padding: 0;
         }
-
         .container {
             display: flex;
             flex-direction: column;
@@ -20,7 +18,6 @@
             justify-content: center;
             min-height: 100vh;
         }
-
         .header {
             background: #3060a8;
             color: white;
@@ -28,7 +25,6 @@
             width: 100%;
             text-align: center;
         }
-
         .content {
             width: 80%;
             background: #fff;
@@ -38,7 +34,6 @@
             margin-top: 20px;
             text-align: center;
         }
-
         .button {
             background-color: #3060a8;
             color: white;
@@ -50,163 +45,93 @@
             margin-top: 10px;
             transition: background-color 0.3s;
         }
-
         .button:hover {
             background-color: #4e81c9;
         }
-
         .turma-list {
             margin-top: 2rem;
             width: 100%;
             text-align: left;
         }
-
         .turma-list table {
             width: 100%;
             border-collapse: collapse;
         }
-
         .turma-list th, .turma-list td {
             padding: 10px;
             border: 1px solid #ddd;
             text-align: left;
         }
-
         .actions button {
             background-color: #f44336;
             margin-right: 5px;
         }
-
         .actions button.view {
             background-color: #4CAF50;
         }
-
         .actions button.delete {
             background-color: #f44336;
         }
-#modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-    padding-top: 60px;
-}
-
-.modal-content {
-    background-color: white;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 400px;
-}
-
-#closeModal {
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-#closeModal:hover,
-#closeModal:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-#modalCadastrarTarefa {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-    padding-top: 60px;
-}
-
-.modal-content {
-    background-color: white;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 400px;
-}
-
-#closeTarefaModal {
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-#closeTarefaModal:hover,
-#closeTarefaModal:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-</style>
-
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 8px;
+        }
+        #closeModal {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        #closeModal:hover,
+        #closeModal:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
-
 <body>
     <div class="container">
         <div class="header">
-           <h1>Bem-vindo</h1>
+            <h1>Bem-vindo</h1>
             <button class="button" id="logoutButton">Sair</button>
         </div>
-
         <div class="content">
-
-            <button id="cadastrarTurmaButton">Cadastrar Nova Turma</button>
-
-
-<div id="modal" style="display:none;">
-    <div class="modal-content">
-        <span id="closeModal" style="cursor:pointer;">&times;</span>
-        <h2>Cadastrar Nova Turma</h2>
-        <form id="turmaForm">
-            <label for="numero">numero da Turma</label>
-            <input type="text" id="numero" name="numero" required>
-
-            <label for="nome">Nome da Turma</label>
-            <input type="text" id="nome" name="nome" required>
-
-            <button type="submit">Cadastrar</button>
-        </form>
-    </div>
-</div>
-
-<div id="modalCadastrarTarefa" style="display:none;">
-    <div class="modal-content">
-        <span id="closeTarefaModal" style="cursor:pointer;">&times;</span>
-        <h2>Cadastrar Nova Tarefa</h2>
-        <form id="tarefaForm">
-            <input type="hidden" id="turmaId" name="turmaId"> <!-- Escondido para passar o ID da turma -->
-            <label for="titulo">Numero da tarefa:</label>
-            <input type="text" name="titulo" required>
-
-            <label for="descricao">Nome</label>
-            <input type="text" name="nome" required>
-
-            <button type="submit">Cadastrar</button>
-        </form>
-    </div>
-</div>
-
+            <button id="cadastrarTurmaButton" class="button">Cadastrar Nova Turma</button>
+            <div id="modal">
+                <div class="modal-content">
+                    <span id="closeModal" style="cursor:pointer;">&times;</span>
+                    <h2>Cadastrar Nova Turma</h2>
+                    <form id="turmaForm">
+                        <label for="numero">Número da Turma</label>
+                        <input type="text" id="numero" name="numero" required>
+                        <label for="nome">Nome da Turma</label>
+                        <input type="text" id="nome" name="nome" required>
+                        <button type="submit" class="button">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
             <div class="turma-list">
                 <h2>Listagem de Turmas</h2>
                 <table>
                     <thead>
                         <tr>
-                            <th>numero</th>
+                            <th>Número</th>
                             <th>Nome da Turma</th>
                             <th>Ações</th>
                         </tr>
@@ -217,152 +142,107 @@
             </div>
         </div>
     </div>
-
     <script>
+        let turmas = [];
 
-        let turmas = []; 
-function renderTurmas() {
-    const turmaTable = document.getElementById('turmaTable');
-    turmaTable.innerHTML = ''; // Limpar a tabela antes de renderizar novamente
+        async function carregarTurmas() {
+            try {
+                const response = await fetch('http://localhost:3000/turma');
+                if (response.ok) {
+                    turmas = await response.json();
+                    renderTurmas();
+                } else {
+                    alert('Erro ao carregar turmas');
+                }
+            } catch (error) {
+                console.error('Erro ao carregar turmas:', error);
+                alert('Erro ao carregar turmas');
+            }
+        }
 
-    turmas.forEach(turma => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${turma.numero}</td>
-            <td>${turma.nome}</td>
-            <td class="actions">
-                <button class="button view" onclick="visualizarTurma(${turma.id})">Visualizar</button>
-                <button class="button delete" onclick="excluirTurma(${turma.id})">Excluir</button>
-            </td>
-        `;
-        turmaTable.appendChild(row);
-    });
-}
+        function renderTurmas() {
+            const turmaTable = document.getElementById('turmaTable');
+            turmaTable.innerHTML = '';
+            turmas.forEach(turma => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${turma.numero}</td>
+                    <td>${turma.nome}</td>
+                    <td class="actions">
+                        <button class="button view" onclick="visualizarTurma(${turma.id})">Visualizar</button>
+                        <button class="button delete" onclick="excluirTurma(${turma.id})">Excluir</button>
+                    </td>
+                `;
+                turmaTable.appendChild(row);
+            });
+        }
 
-document.getElementById('turmaForm').addEventListener('submit', async (event) => {
-    event.preventDefault(); // Impede o envio do formulário
-
-    const numero = document.getElementById('numero').value;
-    const nome = document.getElementById('nome').value;
-
-    try {
-        const response = await fetch('http://localhost:3000/turma', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ numero, nome })
+        document.getElementById('turmaForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const numero = document.getElementById('numero').value;
+            const nome = document.getElementById('nome').value;
+            try {
+                const response = await fetch('http://localhost:3000/turma', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ numero, nome })
+                });
+                if (response.ok) {
+                    alert('Turma cadastrada com sucesso!');
+                    document.getElementById('modal').style.display = 'none';
+                    carregarTurmas();
+                } else {
+                    const erro = await response.text();
+                    alert('Erro ao cadastrar turma: ' + erro);
+                }
+            } catch (error) {
+                console.error('Erro no cadastro da turma:', error);
+                alert('Erro ao cadastrar turma');
+            }
         });
 
-        if (response.ok) {
-            alert('Turma cadastrada com sucesso!');
-            const novaTurma = await response.json(); // Resposta com a turma criada
-            turmas.push(novaTurma); // Adicionando a turma no array
-            renderTurmas(); // Atualizando a lista de turmas
-            document.getElementById('modal').style.display = 'none'; // Fechar o modal
-        } else {
-            alert('Erro ao cadastrar turma');
+        window.visualizarTurma = function(id) {
+            window.location.href = `tarefas.html?id=${id}`;
         }
-    } catch (error) {
-        console.error('Erro no cadastro da turma:', error);
-        alert('Erro ao cadastrar turma');
-    }
-});
-       function visualizarTurma(id) {
-    window.location.href = `tarefas.html?id=${id}`;
-}
 
-        function excluirTurma(id) {
+        window.excluirTurma = async function(id) {
             const confirmacao = confirm('Tem certeza que deseja excluir esta turma?');
             if (confirmacao) {
-                const index = turmas.findIndex(turma => turma.id === id);
-                if (index > -1) {
-                    turmas.splice(index, 1);
-                    renderTurmas(); 
-                    alert('Turma excluída com sucesso!');
+                try {
+                    const response = await fetch(`http://localhost:3000/turma/${id}`, {
+                        method: 'DELETE'
+                    });
+                    if (response.ok) {
+                        alert('Turma excluída com sucesso!');
+                        carregarTurmas();
+                    } else {
+                        alert('Erro ao excluir turma');
+                    }
+                } catch (error) {
+                    alert('Erro ao excluir turma');
                 }
             }
         }
 
         document.getElementById('cadastrarTurmaButton').addEventListener('click', () => {
-    document.getElementById('modal').style.display = 'block';
-});
+            document.getElementById('modal').style.display = 'block';
+        });
 
+        document.getElementById('closeModal').addEventListener('click', () => {
+            document.getElementById('modal').style.display = 'none';
+        });
 
-document.getElementById('closeModal').addEventListener('click', () => {
-    document.getElementById('modal').style.display = 'none';
-});
+        window.addEventListener('click', (event) => {
+            if (event.target === document.getElementById('modal')) {
+                document.getElementById('modal').style.display = 'none';
+            }
+        });
 
-window.addEventListener('click', (event) => {
-    if (event.target === document.getElementById('modal')) {
-        document.getElementById('modal').style.display = 'none';
-    }
-}); 
         document.getElementById('logoutButton').addEventListener('click', () => {
-            window.location.href = 'index.html'; 
+            window.location.href = 'index.html';
         });
 
-let turmaIdSelecionada = null;
-
-function renderTurmas() {
-    const turmaTable = document.getElementById('turmaTable');
-    turmaTable.innerHTML = '';
-
-    turmas.forEach(turma => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${turma.numero}</td>
-            <td>${turma.nome}</td>
-            <td class="actions">
-                <button class="button view" onclick="abrirModalCadastrarTarefa(${turma.id})">Visualizar</button>
-                <button class="button delete" onclick="excluirTurma(${turma.id})">Excluir</button>
-            </td>
-        `;
-        turmaTable.appendChild(row);
-    });
-}
-
-function abrirModalCadastrarTarefa(id) {
-    turmaIdSelecionada = id; 
-    document.getElementById('turmaId').value = turmaIdSelecionada;
-    document.getElementById('modalCadastrarTarefa').style.display = 'block'; 
-}
-document.getElementById('closeTarefaModal').addEventListener('click', () => {
-    document.getElementById('modalCadastrarTarefa').style.display = 'none';
-});
-window.addEventListener('click', (event) => {
-    if (event.target === document.getElementById('modalCadastrarTarefa')) {
-        document.getElementById('modalCadastrarTarefa').style.display = 'none';
-    }
-});
-
-document.getElementById('tarefaForm').addEventListener('submit', async (event) => {
-    event.preventDefault(); 
-
-    const numero = document.getElementById('numero').value;
-    const nome = document.getElementById('nome').value;
-
-    try {
-        const response = await fetch(`http://localhost:3000/tarefa`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                numero,
-                nome,
-                turmaId: turmaIdSelecionada 
-            })
-        });
-
-        if (response.ok) {
-            alert('Tarefa cadastrada com sucesso!');
-            document.getElementById('modalCadastrarTarefa').style.display = 'none'; 
-        } else {
-            alert('Erro ao cadastrar tarefa');
-        }
-    } catch (error) {
-        console.error('Erro no cadastro da tarefa:', error);
-        alert('Erro ao cadastrar tarefa');
-    }
-});
-
+        carregarTurmas();
     </script>
 </body>
 </html>

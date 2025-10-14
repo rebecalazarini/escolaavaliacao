@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas da Turma</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, rgb(180, 227, 241), rgb(75, 197, 235));
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+
+    .header {
+        background: #3060a8;
+        color: white;
+        padding: 1rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .content {
+        width: 80%;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .button {
+        background-color: #3060a8;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+    }
+
+    .button:hover {
+        background-color: #4e81c9;
+    }
+
+    .tarefa-list {
+        margin-top: 2rem;
+        width: 100%;
+        text-align: left;
+    }
+
+    .tarefa-list table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .tarefa-list th,
+    .tarefa-list td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    .actions button {
+        background-color: #f44336;
+        margin-right: 5px;
+    }
+
+    .actions button.view {
+        background-color: #4CAF50;
+    }
+
+    .actions button.delete {
+        background-color: #f44336;
+    }
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 400px;
+        border-radius: 8px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    /* Estilos para a tabela de tarefas */
+    th, td {
+        text-align: left;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    /* Estilo para botões de ação */
+    .actions button {
+        background-color: #f44336;
+        margin-right: 5px;
+        padding: 8px 16px;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .actions button:hover {
+        background-color: #d32f2f;
+    }
+
+    .actions button.delete {
+        background-color: #f44336;
+    }
+
+    .actions button.view {
+        background-color: #4CAF50;
+    }
+
+    .actions button.delete:hover {
+        background-color: #d32f2f;
+    }
+</style>
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Tarefas da Turma</h1>
+            <button class="button" id="logoutButton">Sair</button>
+            <button class="button" onclick="Voltar()">Voltar as turmas</button>
+             <button class="button" id="openModalButton">Cadastrar Tarefa</button>
+        </div>
+
+          <div class="content">
+            <h2>Tarefas da Turma</h2>
+
+            <div class="tarefa-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Numero da Tarefa</th>
+                            <th>Nome da Tarefa</th>
+                            <th>Turma Id</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tarefaTable">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+        
+   <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModalButton">&times;</span>
+            <h2>Cadastrar Tarefa</h2>
+           <div class="form-group">
+            <label for="numeroTarefa">Número da Tarefa:</label>
+            <input type="text" id="numeroTarefa" placeholder="Ex: 1" required>
+        </div>
+        <div class="form-group">
+            <label for="nomeTarefa">Nome da Tarefa:</label>
+            <input type="text" id="nomeTarefa" placeholder="Nome da Tarefa" required>
+        </div>
+           <div class="form-group">
+           <label for="turmaId">ID da Turma:</label>
+           <input type="number" id="turmaId" placeholder="ID da Turma" required>
+</div>
+            <button class="button" id="saveTarefaButton">Salvar Tarefa</button>
+        </div>
+    </div>
+
+ <script>
+    function Voltar() {
+        window.location.href = "telaprof.html"
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const turmaId = params.get('id');
+    let tarefas = [];
+
+    // Abrir modal
+    const modal = document.getElementById("modal");
+    const openModalButton = document.getElementById("openModalButton");
+    const closeModalButton = document.getElementById("closeModalButton");
+
+    openModalButton.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    closeModalButton.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Carregar tarefas
+    async function carregarTarefas() {
+        try {
+            const response = await fetch(`http://localhost:3000/tarefa?turmaId=${turmaId}`);
+            if (response.ok) {
+                tarefas = await response.json();
+                renderTarefas();
+            } else {
+                alert('Erro ao carregar tarefas');
+            }
+        } catch (error) {
+            console.error('Erro ao carregar tarefas:', error);
+            alert('Erro ao carregar tarefas');
+        }
+    }
+
+    // Exibir tarefas na tabela
+    function renderTarefas() {
+        const tarefaTable = document.getElementById('tarefaTable');
+        tarefaTable.innerHTML = '';
+
+        tarefas.forEach(tarefa => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${tarefa.numero}</td>
+                <td>${tarefa.nome}</td>
+                <td>${tarefa.turmaId}</td>
+                <td class="actions">
+                    <button class="button delete" onclick="excluirTarefa(${tarefa.id})">Excluir</button>
+                </td>
+            `;
+            tarefaTable.appendChild(row);
+        });
+    }
+
+    // Função para excluir tarefa (agora faz DELETE na API)
+    async function excluirTarefa(id) {
+        const confirmacao = confirm('Tem certeza que deseja excluir esta tarefa?');
+        if (confirmacao) {
+            try {
+                const response = await fetch(`http://localhost:3000/tarefa/${id}`, {
+                    method: 'DELETE'
+                });
+                if (response.ok) {
+                    alert('Tarefa excluída com sucesso!');
+                    carregarTarefas();
+                } else {
+                    alert('Erro ao excluir tarefa');
+                }
+            } catch (error) {
+                alert('Erro ao excluir tarefa');
+            }
+        }
+    }
+
+    // Função para salvar nova tarefa
+    document.getElementById('saveTarefaButton').onclick = async function () {
+        const numeroTarefa = document.getElementById('numeroTarefa').value;
+        const nomeTarefa = document.getElementById('nomeTarefa').value;
+
+        if (!numeroTarefa || !nomeTarefa) {
+            alert("Preencha todos os campos!");
+            return;
+        }
+
+        const novaTarefa = {
+            numero: numeroTarefa,
+            nome: nomeTarefa,
+            turmaId: parseInt(turmaId)
+        };
+
+        try {
+            const response = await fetch('http://localhost:3000/tarefa', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(novaTarefa),
+            });
+
+            if (response.ok) {
+                alert('Tarefa cadastrada com sucesso!');
+                modal.style.display = 'none';
+                carregarTarefas();
+            } else {
+                alert('Erro ao cadastrar tarefa');
+            }
+        } catch (error) {
+            console.error('Erro ao salvar tarefa:', error);
+            alert('Erro ao salvar tarefa');
+        }
+    };
+
+    // Logout
+    document.getElementById('logoutButton').addEventListener('click', () => {
+        window.location.href = 'index.html';
+    });
+
+    carregarTarefas();
+</script>
+</body>
+</html>

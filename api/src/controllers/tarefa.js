@@ -1,60 +1,55 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// Função para criar uma nova tarefa
 const create = async (req, res) => {
     try {
-        const { numero, nome } = req.body;  // numero e nome da tarefa
+        const { numero, nome, turmaId } = req.body;  // Recebe o ID da turma no corpo da requisição
 
-        // Verifica se já existe uma tarefa com o mesmo numero
+        // Verifica se já existe uma tarefa com o mesmo número
         const existingTarefa = await prisma.tarefa.findFirst({
-            where: { numero: numero }, // Usando findFirst ao invés de findUnique
+            where: { numero: numero },
         });
-
-        // Se já existir, retorna erro 400 (bad request)
         if (existingTarefa) {
-            return res.status(400).json({ error: 'Tarefa com esse numero já existe.' });
+            return res.status(400).json({ error: 'Tarefa com esse número já existe.' });
         }
 
-        // Cria a nova tarefa
+        // Criação da tarefa, associando diretamente o turmaId
         const tarefa = await prisma.tarefa.create({
             data: {
-                numero: numero,
-                nome: nome, 
+                numero: numero,   // Número da tarefa
+                nome: nome,       // Nome da tarefa
+                turmaId: turmaId,  // Associando à turma com o ID
             },
         });
 
-        // Retorna a tarefa criada
-        return res.status(201).json({ id: tarefa.id, numero: tarefa.numero, nome: tarefa.nome });
-
+        return res.status(201).json({
+            id: tarefa.id,
+            numero: tarefa.numero,
+            nome: tarefa.nome,
+            turmaId: tarefa.turmaId,  // Devolva o ID da Turma associada
+        });
     } catch (error) {
+        console.error(error);
         return res.status(400).json({ error: 'Erro ao criar tarefa', details: error.message });
     }
 };
-
-// Função para listar todas as tarefas
 const read = async (req, res) => {
     try {
-        const tarefas = await prisma.tarefa.findMany(); // Busca todas as tarefas
-        return res.status(200).json(tarefas); // Retorna todas as tarefas
+        const tarefas = await prisma.tarefa.findMany(); 
+        return res.status(200).json(tarefas); 
     } catch (error) {
-        // Caso haja erro, retorna status 400
         return res.status(400).json({ error: error.message });
     }
 };
 
-// Função para excluir uma tarefa
 const remove = async (req, res) => {
     try {
-        // Exclui a tarefa com base no id fornecido na URL
         const tarefa = await prisma.tarefa.delete({
             where: { id: parseInt(req.params.id) }
         });
 
-        // Retorna a tarefa excluída
         return res.status(200).json(tarefa);
     } catch (error) {
-        // Se houver erro, retorna erro 400
         return res.status(400).json({ error: error.message });
     }
 };
