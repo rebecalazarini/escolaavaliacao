@@ -15,12 +15,12 @@ model Usuario {
 
 model Tarefa {
     id   Int    @id @default(autoincrement())
-    número Int
+    numero String
     nome String
 }
 
 model Turma {
      id   Int    @id @default(autoincrement())
-    número Int
+    numero String
     nome String
 }
