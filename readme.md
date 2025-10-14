@@ -1,0 +1,27 @@
+# Avaliação Escola
+
+## Tecnologias
+- JavaScript
+- Prisma
+- Mysql
+- html
+- css
+
+## Como testar
+- Clone o repositório
+- Abra com o VsCode
+- Dentro de ./api crie um arquivo .env com a variavel:
+```bash 
+DATABASE_URL="mysql://root@localhost:3306/bdprofessor?timezone=UTC"
+```
+- Aba o terminal cmd e execute os comandos:
+```bash
+npm i 
+npx prisma migrate dev --name init
+npx nodemon server.js
+```
+
+## Print Screen
+![der](./docs/der.png)
+![uml](./docs/uml.png)
+![bd](./docs/bd.png)
