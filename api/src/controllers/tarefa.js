@@ -1,40 +1,14 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-// Função para buscar uma tarefa com base no numero
-const tarefa = async (req, res) => {
-    const { numero, nome } = req.body; // numero e nome da tarefa
-
-    try {
-        // Procura a tarefa no banco de dados pelo numero
-        const tarefa = await prisma.tarefa.findUnique({
-            where: {
-                numero: numero, 
-                nome:nome // Usando o numero como critério de busca
-            },
-        });
-
-        // Se a tarefa não for encontrada, retorna erro 404
-        if (!tarefa) {
-            return res.status(404).json({ message: 'Tarefa não encontrada!' });
-        }
-
-        // Retorna a tarefa encontrada
-        res.status(200).json(tarefa);
-    } catch (err) {
-        // Caso haja erro, retorna status 500 (erro interno)
-        res.status(500).json({ message: 'Erro interno do servidor', error: err.message });
-    }
-};
-
 // Função para criar uma nova tarefa
 const create = async (req, res) => {
     try {
         const { numero, nome } = req.body;  // numero e nome da tarefa
 
         // Verifica se já existe uma tarefa com o mesmo numero
-        const existingTarefa = await prisma.tarefa.findUnique({
-            where: { numero: numero },
+        const existingTarefa = await prisma.tarefa.findFirst({
+            where: { numero: numero }, // Usando findFirst ao invés de findUnique
         });
 
         // Se já existir, retorna erro 400 (bad request)
@@ -85,4 +59,4 @@ const remove = async (req, res) => {
     }
 };
 
-module.exports = { tarefa, create, read, remove };
+module.exports = { create, read, remove };

@@ -117,6 +117,40 @@
     text-decoration: none;
     cursor: pointer;
 }
+#modalCadastrarTarefa {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+}
+
+#closeTarefaModal {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#closeTarefaModal:hover,
+#closeTarefaModal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 </style>
 
     </style>
@@ -144,6 +178,23 @@
 
             <label for="nome">Nome da Turma</label>
             <input type="text" id="nome" name="nome" required>
+
+            <button type="submit">Cadastrar</button>
+        </form>
+    </div>
+</div>
+
+<div id="modalCadastrarTarefa" style="display:none;">
+    <div class="modal-content">
+        <span id="closeTarefaModal" style="cursor:pointer;">&times;</span>
+        <h2>Cadastrar Nova Tarefa</h2>
+        <form id="tarefaForm">
+            <input type="hidden" id="turmaId" name="turmaId"> <!-- Escondido para passar o ID da turma -->
+            <label for="titulo">Numero da tarefa:</label>
+            <input type="text" name="titulo" required>
+
+            <label for="descricao">Nome</label>
+            <input type="text" name="nome" required>
 
             <button type="submit">Cadastrar</button>
         </form>
@@ -194,7 +245,6 @@ document.getElementById('turmaForm').addEventListener('submit', async (event) =>
     const numero = document.getElementById('numero').value;
     const nome = document.getElementById('nome').value;
 
-    // Enviando os dados para o backend
     try {
         const response = await fetch('http://localhost:3000/turma', {
             method: 'POST',
@@ -216,11 +266,10 @@ document.getElementById('turmaForm').addEventListener('submit', async (event) =>
         alert('Erro ao cadastrar turma');
     }
 });
-        function visualizarTurma(id) {
-            alert(`Visualizando turma com ID: ${id}`);
-        }
+       function visualizarTurma(id) {
+    window.location.href = `tarefas.html?id=${id}`;
+}
 
-        // Função para excluir turma
         function excluirTurma(id) {
             const confirmacao = confirm('Tem certeza que deseja excluir esta turma?');
             if (confirmacao) {
@@ -246,14 +295,74 @@ window.addEventListener('click', (event) => {
     if (event.target === document.getElementById('modal')) {
         document.getElementById('modal').style.display = 'none';
     }
-});
-
-
-        
+}); 
         document.getElementById('logoutButton').addEventListener('click', () => {
             window.location.href = 'index.html'; 
         });
+
+let turmaIdSelecionada = null;
+
+function renderTurmas() {
+    const turmaTable = document.getElementById('turmaTable');
+    turmaTable.innerHTML = '';
+
+    turmas.forEach(turma => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${turma.numero}</td>
+            <td>${turma.nome}</td>
+            <td class="actions">
+                <button class="button view" onclick="abrirModalCadastrarTarefa(${turma.id})">Visualizar</button>
+                <button class="button delete" onclick="excluirTurma(${turma.id})">Excluir</button>
+            </td>
+        `;
+        turmaTable.appendChild(row);
+    });
+}
+
+function abrirModalCadastrarTarefa(id) {
+    turmaIdSelecionada = id; 
+    document.getElementById('turmaId').value = turmaIdSelecionada;
+    document.getElementById('modalCadastrarTarefa').style.display = 'block'; 
+}
+document.getElementById('closeTarefaModal').addEventListener('click', () => {
+    document.getElementById('modalCadastrarTarefa').style.display = 'none';
+});
+window.addEventListener('click', (event) => {
+    if (event.target === document.getElementById('modalCadastrarTarefa')) {
+        document.getElementById('modalCadastrarTarefa').style.display = 'none';
+    }
+});
+
+document.getElementById('tarefaForm').addEventListener('submit', async (event) => {
+    event.preventDefault(); 
+
+    const numero = document.getElementById('numero').value;
+    const nome = document.getElementById('nome').value;
+
+    try {
+        const response = await fetch(`http://localhost:3000/tarefa`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                numero,
+                nome,
+                turmaId: turmaIdSelecionada 
+            })
+        });
+
+        if (response.ok) {
+            alert('Tarefa cadastrada com sucesso!');
+            document.getElementById('modalCadastrarTarefa').style.display = 'none'; 
+        } else {
+            alert('Erro ao cadastrar tarefa');
+        }
+    } catch (error) {
+        console.error('Erro no cadastro da tarefa:', error);
+        alert('Erro ao cadastrar tarefa');
+    }
+});
+
     </script>
 </body>
-
 </html>

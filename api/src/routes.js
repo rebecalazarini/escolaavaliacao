@@ -12,7 +12,6 @@ router.post('/cadastrar', Usuario.cadastrarUsuario);
 router.post('/tarefa', Tarefa.create);
 router.get('/tarefa', Tarefa.read);
 router.delete('/tarefa', Tarefa.remove);
-router.get('/tarefa', Tarefa.tarefa);
 
 router.post('/turma', Turma.createTurma);
 router.get('/turma', Turma.read);
