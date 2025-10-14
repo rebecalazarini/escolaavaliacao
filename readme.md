@@ -11,6 +11,7 @@
 ## Como testar
 - Clone o repositório
 - Abra com o VsCode
+- Coloque o xampp e o sql pra rodar
 - Dentro de ./api crie um arquivo .env com a variavel:
 ```bash 
 DATABASE_URL="mysql://root@localhost:3306/bdprofessor?timezone=UTC"
