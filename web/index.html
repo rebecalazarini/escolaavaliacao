@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login</title>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial;
+        background: linear-gradient(to right, rgb(180, 227, 241), rgb(75, 197, 235));
+    }
+
+    .container {
+        display: flex;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .container .containerLeft {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .container .containerRight {
+        position: absolute;
+        height: 90vh;
+        width: 90vw;
+        background: #f8f8f8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        border-radius: 16px;
+        transform: translateX(-20px);
+        margin-right: 20px;
+    }
+
+    .container .containerRight h1 {
+        margin-bottom: 2rem;
+        color: rgb(0, 0, 0);
+    }
+
+    .container .containerRight form label input {
+        width: 100%;
+        margin-bottom: 1rem;
+        margin-top: 5px;
+        padding: .75rem;
+        outline: 0;
+        border: 1px solid #CCC;
+        border-radius: 6px;
+    }
+
+    .container .containerRight form p {
+        text-align: right;
+        margin: 1rem 0;
+        font-size: 14px;
+    }
+
+    .container .containerRight form button {
+        width: 100%;
+        margin-top: 1rem;
+        padding: .75rem;
+        background: #3060a8;
+        border-radius: 6px;
+        border: 0;
+        color: #ffffff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .container .containerRight form button:hover {
+        background: #4e81c9;
+    }
+
+    @media (min-width: 768px) {
+        .container .containerRight {
+            position: static;
+            width: 60vw;
+            transform: translateX(0);
+        }
+
+        .containerRight {
+            background: linear-gradient(to right, rgb(180, 227, 241), rgb(75, 197, 235));
+        }
+    }
+</style>
+
+<body>
+	<main class="container">
+		<div class="containerRight">
+			<h1>Bem Vindo </h1>
+			<form id="loginForm"> <!-- Adicionei o id aqui -->
+				<label>
+					Email
+					<input type="email" id="Email" placeholder="email" required>
+				</label>
+
+				<label>
+					Senha
+					<input type="password" id="password" placeholder="senha" required>
+				</label>
+
+				<button type="submit">Fazer login</button> <!-- Altere o tipo do botão para submit -->
+			</form>
+		</div>
+	</main>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const form = document.getElementById('loginForm'); // Agora o form tem o id
+
+			form.addEventListener('submit', async (event) => {
+				event.preventDefault(); // Impede o envio do formulário tradicional
+
+				const email = document.getElementById('Email').value;
+				const password = document.getElementById('password').value;
+
+				// Envia os dados para o servidor
+				const response = await fetch('http://localhost:3000/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ email, senha: password })
+				});
+
+				if (response.ok) {
+					window.location.href = 'telaprof.html'; // Redireciona para outra página após login bem-sucedido
+				} else {
+					alert('Erro no login, tente novamente.');
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>
