@@ -22,6 +22,14 @@ npm i
 npx prisma migrate dev --name init
 npx nodemon server.js
 ```
+- Antes de testar direto pelo front, abra o insomnia para cadastrar um professor
+url POST: https://localhost:3000/cadastrar
+```bash
+{
+"email":"exemplo@gmail.com",
+"senha":"12345"
+}
+```
 
 ## Print Screen
 ![der](./docs/der.png)
