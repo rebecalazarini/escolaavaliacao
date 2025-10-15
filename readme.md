@@ -7,6 +7,7 @@
 - Node.js
 - html
 - css
+- Express
 
 ## Como testar
 - Clone o repositório
